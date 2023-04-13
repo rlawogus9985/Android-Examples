@@ -1,10 +1,16 @@
 package com.example.calculator
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.room.Room
 import com.example.calculator.databinding.ActivityMainBinding
+import com.example.calculator.model.History
 import java.math.RoundingMode
 import java.util.*
 
@@ -26,8 +32,21 @@ class MainActivity : AppCompatActivity() {
         binding.resultTextView
     }
 
+    val historyLayout: View by lazy {
+        binding.historyLayout
+    }
+
+    val historyLinearLayout: LinearLayout by lazy {
+        binding.historyLinearLayout
+    }
+
+    lateinit var db: AppDatabase
+
     // 지금 숫자를 넣고있는지 기호를 넣고있는지 구분하는 변수
     private var isOperator = false
+
+    private var isKeepEquation = false
+    private var previousExpression = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         // 화면 출력
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "historyDB"
+        ).build()
 
         // 그냥 버튼 클릭했을 때 이벤트 걸기
         val buttonIds = arrayOf(binding.button0, binding.button1, binding.button2, binding.button3,
@@ -68,13 +93,20 @@ class MainActivity : AppCompatActivity() {
         // equationButton(부등호) 클릭. 람다식
         binding.equationButton.setOnClickListener {
 
-            // expressionTextView가 초기화 됐는지 아닌지로 구분하기에는 expressionTextView를 부른 시점에서
-            // 이미 초기화됀다.
-            // expressionTextView.text는 String형이다
-            // 그럼 애초에 expressionTextView.text에는 아무것도 없는것을 println으로 확인했는데
-            // null일까? ""일까? null이면 애초에 .split(" ")에서 오류가 났을것 같긴하다.
-            // 빈문자열이다.
-//            println("하이하이" + (expressionTextView.text == null) + ", " + (expressionTextView.text == "")) false, true반환됌
+            if (isKeepEquation){
+                when {
+                    previousExpression[1] == "%" -> {
+                        expressionTextView.append(" * 0.01")
+                        expressionTextView.text = calculateExpression()
+                    }
+                    else -> {
+                        expressionTextView.append(" ${previousExpression[0]} ${previousExpression[1]}")
+                        expressionTextView.text = calculateExpression()
+                    }
+                }
+                return@setOnClickListener
+            }
+
             val expressionTexts = expressionTextView.text.split(" ")
 
             // 비어있거나 숫자만 들어오는 경우 아무 동작 x
@@ -89,14 +121,23 @@ class MainActivity : AppCompatActivity() {
             }
 
 
+            previousExpression.addAll(expressionTexts.takeLast(2).joinToString(" ").split(" "))
+
             // 실질적 계산
-//            val expressionText = expressionTextView.text.toString()
+            val expressionText = expressionTextView.text.toString()
             val resultText = calculateExpression()
+
+            // DB는 새로운 쓰레드에서 해줘야한다.
+            Thread(Runnable {
+                db.historyDao().insertHistory(History(null,expressionText,resultText))
+            }).start()
+
 
             resultTextView.text = ""
             expressionTextView.text = resultText
 
             isOperator = false
+            isKeepEquation = true
         }
 
         // clearButton 클릭
@@ -104,16 +145,65 @@ class MainActivity : AppCompatActivity() {
             binding.expressionTextView.text = ""
             binding.resultTextView.text = ""
             isOperator = false
-//            hasOperator = false
+            isKeepEquation = false
+            previousExpression.clear()
+        }
+
+        // cancleButton 클릭
+        binding.cancleButton.setOnClickListener{
+            isOperator = false
+            isKeepEquation = false
+            previousExpression.clear()
+
+            val expressionTexts = expressionTextView.text.split(" ")
+
+            if(expressionTexts.size == 0){
+                return@setOnClickListener
+            }
+
+            expressionTextView.text = expressionTexts.dropLast(1).joinToString(" ")
+            resultTextView.text = calculateExpression()
         }
 
         // history버튼은 이후 추가
+        binding.historyButton.setOnClickListener{
+            historyLayout.isVisible = true
+
+            historyLinearLayout.removeAllViews()
+            // DB에서 모든 기록 가져오기
+            Thread(Runnable {
+                db.historyDao().getAll().reversed().forEach{
+                    // 뷰에 모든 기록 할당하기
+                    runOnUiThread{
+                        val historyView = LayoutInflater.from(this).inflate(R.layout.history_row, null, false)
+                        historyView.findViewById<TextView>(R.id.expressionTextView).text = it.expression
+                        historyView.findViewById<TextView>(R.id.resultTextView).text = "= ${it.result}"
+
+                        historyLinearLayout.addView(historyView)
+                    }
+                }
+            }).start()
+        }
+        binding.historyClearButton.setOnClickListener {
+            historyLinearLayout.removeAllViews()
+
+            Thread(Runnable {
+                db.historyDao().deleteAll()
+            }).start()
+        }
+        binding.historyCloseButton.setOnClickListener {
+            historyLayout.isVisible = false
+        }
     }
+
     // 일반 숫자를 눌렀을 때
     fun numberButtonClicked(number: String) {
 
+        isKeepEquation = false
+        previousExpression.clear()
+
         // 기호를 넣다가 왔으면 띄어쓰기를 통해 구분
-        if (isOperator) {
+        if (expressionTextView.text.split(" ").lastOrNull() in listOf("-","*","/","+")) {
             expressionTextView.append(" ")
         }
         isOperator = false
@@ -123,7 +213,13 @@ class MainActivity : AppCompatActivity() {
 
         // %를 썼을 경우 숫자를 누르면 _x_를 앞에 붙이고 이후 숫자를 넣는다.
         if(expressionText.last() == "%"){
-            expressionTextView.append(" * ")
+            if (number == ".") {
+                expressionTextView.append(" * 0.")
+                return
+            } else {
+                expressionTextView.append(" * ")
+            }
+
         }
 
         // 소수점이 있을때와 없을 때를 구분해서 처리
@@ -167,20 +263,24 @@ class MainActivity : AppCompatActivity() {
 
     // 연산자 기호를 눌렀을 때
     fun operatorButtonClicked(operator: String) {
+
+        isKeepEquation = false
+        previousExpression.clear()
+
         // 처음부터 연산자를 클릭했을때 무시해야한다
         if (expressionTextView.text.isEmpty()){
             return
         }
         // 연산자를 바꾸기 위해서 취소 버튼을 누르거나 다른 연산자 버튼을 눌렀을때를 허용
         when {
-            isOperator -> {
+            expressionTextView.text.split(" ").lastOrNull() in listOf("-","*","/","+") -> {
               val text = expressionTextView.text.toString()
                 // 맨 끝 한자리 삭제하고 새로운 연산자로 추가
                 // %일 경우에는 완성되지 않은 수식입니다. 오류 반환
-                if (operator == "%"){
-                    Toast.makeText(this,"완성되지 않은 수식입니다.", Toast.LENGTH_SHORT).show()
-                    return
-                }
+//                if (operator == "%"){
+//                    Toast.makeText(this,"완성되지 않은 수식입니다.", Toast.LENGTH_SHORT).show()
+//                    return
+//                }
               expressionTextView.text = text.dropLast(1) + operator
             }
             operator == "%" -> { // 연산자가 %는 두번 연속으로 나올 수 없고 %를 쓴 시점에 식을 계산해준다.

@@ -1,11 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.example.calculator'
+    namespace 'com.example.ch10_notification'
     compileSdk 32
 
     viewBinding {
@@ -13,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.calculator"
+        applicationId "com.example.ch10_notification"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -46,7 +45,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    implementation "androidx.room:room-runtime:2.2.6"
-    kapt "androidx.room:room-compiler:2.2.6"
 }

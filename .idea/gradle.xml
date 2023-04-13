@@ -12,9 +12,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/calculator" />
+            <option value="$PROJECT_DIR$/ch10_notification" />
+            <option value="$PROJECT_DIR$/ch14_receiver" />
             <option value="$PROJECT_DIR$/ch7_layout" />
             <option value="$PROJECT_DIR$/ch8_event" />
             <option value="$PROJECT_DIR$/ch9_resource" />
+            <option value="$PROJECT_DIR$/lovetest" />
           </set>
         </option>
       </GradleProjectSettings>
