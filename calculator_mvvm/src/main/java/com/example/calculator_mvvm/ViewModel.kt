@@ -30,6 +30,10 @@ class ViewModel: androidx.lifecycle.ViewModel() {
                 } else {
                     model.expressionTexts += "*"
                 }
+            } else if(splitedExpTexts.last() in "+-*/"){
+                if(i == "."){
+                    model.expressionTexts += "0"
+                }
             }
             if(splitedExpTexts.last().contains(".")){
                 if(splitedExpTexts.last().length >= 16){
@@ -43,16 +47,33 @@ class ViewModel: androidx.lifecycle.ViewModel() {
                 if(splitedExpTexts.last().length >= 15){
 
                 } else if (splitedExpTexts.last() == "0"){
-                    if (i != "."){ model.expressionTexts = model.expressionTexts.dropLast(1) + i }
+                    if (i != "."){
+                        model.expressionTexts = model.expressionTexts.dropLast(1)
+                    }
                 }
             }
         }
-
         model.expressionTexts += i
         _expText.value = "${model.expressionTexts}"
         _resText.value = model.calculateExpression(model.expressionTexts)
     }
     fun clickOperator(i: String){
+
+        if( model.expressionTexts.isEmpty()){
+            return
+        }
+        when{
+            model.expressionTexts.last() in "+-*/" -> {
+                model.expressionTexts = model.expressionTexts.dropLast(1)
+            }
+            i == "%" -> {
+                if(model.expressionTexts.last() == '%'){
+                    // 토스트메시지
+                    return
+                }
+            }
+        }
+
         model.expressionTexts += i
         _expText.value = "${model.expressionTexts}"
         if (i=="%"){
@@ -83,6 +104,10 @@ class ViewModel: androidx.lifecycle.ViewModel() {
         }
     }
     fun clickEquality(){
+        if (model.expressionTexts.isEmpty() || model.expressionTexts.last() in "+-*/"){
+            return
+        }
+
         model.expressionTexts = _resText.value.toString()
         _expText.value = "${model.expressionTexts}"
         _resText.value = ""
