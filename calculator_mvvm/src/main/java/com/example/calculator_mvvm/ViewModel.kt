@@ -54,7 +54,7 @@ class ViewModel: androidx.lifecycle.ViewModel() {
             }
         }
         model.expressionTexts += i
-        _expText.value = "${model.expressionTexts}"
+        _expText.value = model.expressionTexts
         _resText.value = model.calculateExpression(model.expressionTexts)
     }
     fun clickOperator(i: String){
@@ -62,20 +62,15 @@ class ViewModel: androidx.lifecycle.ViewModel() {
         if( model.expressionTexts.isEmpty()){
             return
         }
-        when{
-            model.expressionTexts.last() in "+-*/" -> {
-                model.expressionTexts = model.expressionTexts.dropLast(1)
-            }
-            i == "%" -> {
-                if(model.expressionTexts.last() == '%'){
-                    // 토스트메시지
-                    return
-                }
-            }
+        if(model.expressionTexts.last() in "+-*/"){
+            model.expressionTexts = model.expressionTexts.dropLast(1)
+        } else if (model.expressionTexts.last() == '%' && i == "%") {
+            // 토스트메시지
+            return
         }
 
         model.expressionTexts += i
-        _expText.value = "${model.expressionTexts}"
+        _expText.value = model.expressionTexts
         if (i=="%"){
             _resText.value = model.calculateExpression(model.expressionTexts)
         } else {
@@ -90,7 +85,7 @@ class ViewModel: androidx.lifecycle.ViewModel() {
     }
     fun clickCancle(){
         model.expressionTexts = model.expressionTexts.dropLast(1)
-        _expText.value = "${model.expressionTexts}"
+        _expText.value = model.expressionTexts
 
         if(model.expressionTexts.length == 0){
             _resText.value = ""
@@ -109,7 +104,7 @@ class ViewModel: androidx.lifecycle.ViewModel() {
         }
 
         model.expressionTexts = _resText.value.toString()
-        _expText.value = "${model.expressionTexts}"
+        _expText.value = model.expressionTexts
         _resText.value = ""
     }
 }
