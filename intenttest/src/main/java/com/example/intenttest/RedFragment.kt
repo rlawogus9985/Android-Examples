@@ -16,4 +16,4 @@ class RedFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_red, container, false)
     }
 
-}   
+}
