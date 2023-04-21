@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GlobalAOS</string>
+    <string name="usr_name">Benedict Cumberbatch</string>
+    <string name="about_me">About me</string>
+    <string name="about_me_context">I work as a model in Spain and I\'m bored because I don\'t have any friends here. love tennis, football, hockey, and all kinds of sports 😜</string>
+    <string name="interests">Movie, Party, Small Group, Puzzle, Cook, Play, Drama</string>
+    <string name="favoriteFood">Pizza, Sandwich, Hamburger, Risotto, Wine</string>
+    <string name="exercise">Soccer, Karate, Running, Tennis, Fencing</string>
+</resources>

@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- 기본 이미지를 넣을 때
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_detail_default_avatar_m"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2View"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/indicatorRecycleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="292dp"
+                    />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dotsIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginBottom="48dp"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!-- First Information Layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/firstInfoLayout"
+                android:layout_width="0dp"
+                android:layout_height="127dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="320dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/shape_rounded_background"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/nameAgeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/userNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/noto_sans_cjkkr_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.03"
+                        android:text="@string/usr_name"
+                        android:textColor="@color/nickname_m"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/barImageView"
+                        android:layout_width="1dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="4dp"
+                        android:src="@drawable/bar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/userNameTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/ageTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/noto_sans_cjkkr_medium"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.03"
+                        android:text="22"
+                        android:textColor="#505050"
+                        android:textSize="16dp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/barImageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="68dp"
+                        android:layout_height="21dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="2dp"
+                        android:src="@drawable/btn_badge_marriage_l"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ageTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/nationLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nameAgeLayout">
+
+                    <ImageView
+                        android:id="@+id/locationIconImageView"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="1dp"
+                        android:src="@drawable/icon_location"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/nationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/noto_sans_cjkkr_medium"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.03"
+                        android:text="NewYork, USA"
+                        android:textColor="#707070"
+                        android:textSize="12dp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/locationIconImageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="1dp"
+                        android:src="@drawable/badge_nation"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/nationTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/likeVideoChatButtonLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nationLayout">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/likeButtonLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/shape_8dp_rounded_background"
+                        android:backgroundTint="@color/primary_300"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/videoChatButtonLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="2dp"
+                            android:fontFamily="@font/noto_sans_cjkkr_medium"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="-0.03"
+                            android:text="Like"
+                            android:textColor="#505050"
+                            android:textSize="14dp"
+                            android:textStyle="normal"
+                            app:drawableStartCompat="@drawable/icon_like"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/videoChatButtonLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/shape_8dp_rounded_background"
+                        android:backgroundTint="@color/primary_300"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/ChatButtonLayout"
+                        app:layout_constraintStart_toEndOf="@id/likeButtonLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/noto_sans_cjkkr_medium"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="-0.03"
+                            android:text="Video Chat"
+                            android:textColor="#505050"
+                            android:textSize="14dp"
+                            android:textStyle="normal"
+                            app:drawableStartCompat="@drawable/icon_vchat"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ChatButtonLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/shape_8dp_rounded_background"
+                        android:backgroundTint="@color/primary_500"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/videoChatButtonLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/icon_contact"
+                            android:drawablePadding="2dp"
+                            android:fontFamily="@font/noto_sans_cjkkr_medium"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="-0.03"
+                            android:text="Chat"
+                            android:textColor="#202020"
+                            android:textSize="14dp"
+                            android:textStyle="normal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Second Information Layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secondInfoLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/shape_rounded_background"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/firstInfoLayout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/aboutMeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginEnd="11dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        style="@style/YellowUnderline"
+                        app:layout_constraintBottom_toBottomOf="@id/aboutMeTextView"
+                        app:layout_constraintEnd_toEndOf="@id/aboutMeTextView"
+                        app:layout_constraintStart_toStartOf="@id/aboutMeTextView" />
+
+                    <TextView
+                        android:id="@+id/aboutMeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/noto_sans_cjkkr_bold"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.03"
+                        android:text="@string/about_me"
+                        android:textColor="@color/c202020"
+                        android:textSize="13dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/noto_sans_cjkkr_regular"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="-0.03"
+                        android:text="@string/about_me_context"
+                        android:textColor="@color/c202020"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/aboutMeTextView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="11dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aboutMeLayout"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Third Information Layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/shape_rounded_background"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/secondInfoLayout">
+
+                <TextView
+                    android:id="@+id/photoVideoTextView"
+                    style="@style/BoldTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Photo / Video"
+                    android:textColor="@color/c202020"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Photo Video Storage -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/photoVideoTextView">
+
+                    <ImageView
+                        android:id="@+id/photoVideoImageView1"
+                        android:layout_width="98dp"
+                        android:layout_height="98dp"
+                        android:background="@drawable/photo_video_shape"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/robert1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/photoVideoImageView2"
+                        style="@style/photoVideoStyle"
+                        android:src="@drawable/robert2"
+                        app:layout_constraintEnd_toStartOf="@id/photoVideoImageView3"
+                        app:layout_constraintStart_toEndOf="@id/photoVideoImageView1"
+                        app:layout_constraintTop_toTopOf="@id/photoVideoImageView1" />
+
+                    <ImageView
+                        android:id="@+id/photoVideoImageView3"
+                        style="@style/photoVideoStyle"
+                        android:src="@drawable/robert3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/photoVideoImageView2" />
+
+                    <ImageView
+                        android:id="@+id/photoVideoImageView4"
+                        style="@style/photoVideoStyle"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/robert4"
+                        app:layout_constraintStart_toStartOf="@id/photoVideoImageView1"
+                        app:layout_constraintTop_toBottomOf="@id/photoVideoImageView1" />
+
+                    <ImageView
+                        android:id="@+id/photoVideoImageView5"
+                        style="@style/photoVideoStyle"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/robert5"
+                        app:layout_constraintStart_toStartOf="@id/photoVideoImageView2"
+                        app:layout_constraintTop_toBottomOf="@id/photoVideoImageView2" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:src="@drawable/btn_detail_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:src="@drawable/btn_detail_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/scrollUpButton"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="22dp"
+        android:background="@null"
+        android:src="@drawable/btn_up"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tinyProfileLayout"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/primary_500">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tinyLikeVideoChatButtonLayout">
+
+            <ImageView
+                android:id="@+id/btnBackWImageView"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/btn_detail_back_w"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnBackWImageView"
+                >
+                <ImageView
+                    android:id="@+id/tinyProfileImage"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/penguin1"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/round_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tinyProfileName"
+                    style="@style/BoldTextStyle"
+                    android:layout_width="111dp"
+                    android:layout_height="20dp"
+                    android:text="Benedict Cumberbatch"
+                    android:textColor="@color/c202020"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginStart="8dp"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    app:layout_constraintStart_toEndOf="@id/tinyProfileImage"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tinyBar"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:background="#80761e"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="6dp"
+                    app:layout_constraintStart_toEndOf="@id/tinyProfileName"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <TextView
+                    android:id="@+id/tinyProfileAge"
+                    style="@style/NormalTextStyle"
+                    app:layout_constraintStart_toEndOf="@id/tinyBar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="6dp"
+                    android:drawableEnd="@drawable/badge_marriage_type_w"
+                    android:drawablePadding="8dp"
+                    android:gravity="bottom"
+                    android:text="33"
+                    />
+
+                <TextView
+                    style="@style/NormalTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="17dp"
+                    android:textSize="12dp"
+                    android:textColor="#707070"
+                    android:text="New York, USA"
+                    app:layout_constraintStart_toStartOf="@id/tinyProfileName"
+                    app:layout_constraintTop_toBottomOf="@id/tinyProfileName"
+                    android:drawableStart="@drawable/icon_location_w"
+                    android:drawableEnd="@drawable/badge_nation"
+                    android:drawablePadding="3dp"
+                    android:gravity="bottom"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/btn_detail_more_w"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tinyLikeVideoChatButtonLayout"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tinyLikeButtonLayout"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:background="@drawable/shape_8dp_rounded_background"
+                android:backgroundTint="@color/primary_300"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tinyVideoChatButtonLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:fontFamily="@font/noto_sans_cjkkr_medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.03"
+                    android:text="Like"
+                    android:textColor="#505050"
+                    android:textSize="14dp"
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/icon_like"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tinyVideoChatButtonLayout"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/shape_8dp_rounded_background"
+                android:backgroundTint="@color/primary_300"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tinyChatButtonLayout"
+                app:layout_constraintStart_toEndOf="@id/tinyLikeButtonLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/noto_sans_cjkkr_medium"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.03"
+                    android:text="Video Chat"
+                    android:textColor="#505050"
+                    android:textSize="14dp"
+                    android:textStyle="normal"
+                    app:drawableStartCompat="@drawable/icon_vchat"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tinyChatButtonLayout"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:background="@drawable/shape_8dp_rounded_background"
+                android:backgroundTint="@color/primary_300"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tinyVideoChatButtonLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/icon_contact"
+                    android:drawablePadding="2dp"
+                    android:fontFamily="@font/noto_sans_cjkkr_medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="-0.03"
+                    android:text="Chat"
+                    android:textColor="#202020"
+                    android:textSize="14dp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

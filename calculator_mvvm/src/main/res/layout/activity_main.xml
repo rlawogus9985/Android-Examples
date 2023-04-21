@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.calculator_mvvm.ViewModel" />
+            name="calViewModel"
+            type="com.example.calculator_mvvm.CalViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +27,7 @@
             app:layout_constraintVertical_weight="1" />
 
         <TextView
-            android:text="@{viewModel.expText}"
+            android:text="@{calViewModel.expText}"
             android:id="@+id/expressionTextView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,32 +42,32 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="@{viewModel.resText}"
+            android:text="@{calViewModel.resText}"
             android:id="@+id/resultTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/historyButton"
+            app:layout_constraintBottom_toTopOf="@id/cancleButton"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="end"
             android:textSize="20dp"
             android:textColor="#EEEEEE"
             android:layout_marginEnd="15dp" />
 
-        <ImageButton
-            android:id="@+id/historyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_access_time_24"
-            app:layout_constraintBottom_toTopOf="@id/zoneDivisionLine"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/historyButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_baseline_access_time_24"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/zoneDivisionLine"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:layout_marginStart="30dp"-->
+<!--            android:layout_marginBottom="10dp" />-->
 
         <ImageButton
             android:id="@+id/cancleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.clickCancle()}"
+            android:onClick="@{()->calViewModel.clickCancle()}"
             android:src="@drawable/ic_baseline_cancel_presentation_24"
             app:layout_constraintBottom_toTopOf="@id/zoneDivisionLine"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +101,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="C"
                 android:textColor="#FF0000"
-                android:onClick="@{()->viewModel.clickClear()}"
+                android:onClick="@{()->calViewModel.clickClear()}"
                 app:layout_constraintBottom_toTopOf="@id/button7"
                 app:layout_constraintEnd_toStartOf="@id/parenthesesButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="%"
                 android:textColor="#82DB51"
-                android:onClick="@{()->viewModel.clickOperator(`%`)}"
+                android:onClick="@{()->calViewModel.clickOperator(`%`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/parenthesesButton"
                 app:layout_constraintEnd_toStartOf="@id/divisionbutton"
                 app:layout_constraintStart_toEndOf="@id/parenthesesButton"
@@ -135,7 +135,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="÷"
                 android:textColor="#82DB51"
-                android:onClick="@{()->viewModel.clickOperator(`/`)}"
+                android:onClick="@{()->calViewModel.clickOperator(`/`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/percentage_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/percentage_button"
@@ -146,7 +146,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="7"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`7`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`7`)}"
                 app:layout_constraintBottom_toTopOf="@id/button4"
                 app:layout_constraintEnd_toStartOf="@id/button8"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,7 +157,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="8"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`8`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`8`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button7"
                 app:layout_constraintEnd_toStartOf="@id/button9"
                 app:layout_constraintStart_toEndOf="@id/button7"
@@ -168,7 +168,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="9"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`9`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`9`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button8"
                 app:layout_constraintEnd_toStartOf="@id/multipyButton"
                 app:layout_constraintStart_toEndOf="@id/button8"
@@ -179,7 +179,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="x"
                 android:textColor="#82DB51"
-                android:onClick="@{()->viewModel.clickOperator(`*`)}"
+                android:onClick="@{()->calViewModel.clickOperator(`*`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/button9"
@@ -190,7 +190,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="4"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`4`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`4`)}"
                 app:layout_constraintBottom_toTopOf="@id/button1"
                 app:layout_constraintEnd_toStartOf="@id/button5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +201,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="5"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`5`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`5`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button4"
                 app:layout_constraintEnd_toStartOf="@id/button6"
                 app:layout_constraintStart_toEndOf="@id/button4"
@@ -212,7 +212,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="6"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`6`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`6`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button5"
                 app:layout_constraintEnd_toStartOf="@id/minusButton"
                 app:layout_constraintStart_toEndOf="@id/button5"
@@ -223,7 +223,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="-"
                 android:textColor="#82DB51"
-                android:onClick="@{()->viewModel.clickOperator(`-`)}"
+                android:onClick="@{()->calViewModel.clickOperator(`-`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/button6"
@@ -234,7 +234,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="1"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`1`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`1`)}"
                 app:layout_constraintBottom_toTopOf="@id/plusMinusButton"
                 app:layout_constraintEnd_toStartOf="@id/button2"
                 app:layout_constraintStart_toStartOf="parent"
@@ -245,7 +245,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="2"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`2`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`2`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button1"
                 app:layout_constraintEnd_toStartOf="@id/button3"
                 app:layout_constraintStart_toEndOf="@id/button1"
@@ -256,7 +256,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="3"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`3`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`3`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button2"
                 app:layout_constraintEnd_toStartOf="@id/plusButton"
                 app:layout_constraintStart_toEndOf="@id/button2"
@@ -267,7 +267,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="+"
                 android:textColor="#82DB51"
-                android:onClick="@{()->viewModel.clickOperator(`+`)}"
+                android:onClick="@{()->calViewModel.clickOperator(`+`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/button3"
@@ -290,7 +290,7 @@
                 android:id="@+id/button0"
                 android:text="0"
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`0`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`0`)}"
                 app:layout_constraintTop_toTopOf="@id/plusMinusButton"
                 app:layout_constraintStart_toEndOf="@id/plusMinusButton"
                 app:layout_constraintEnd_toStartOf="@id/dotButton"
@@ -301,7 +301,7 @@
                 style="@style/CalculatorButtonStyle"
                 android:text="."
                 android:textColor="#FBFBFB"
-                android:onClick="@{()->viewModel.clickNumber(`.`)}"
+                android:onClick="@{()->calViewModel.clickNumber(`.`)}"
                 app:layout_constraintBottom_toBottomOf="@+id/button0"
                 app:layout_constraintEnd_toStartOf="@id/equationButton"
                 app:layout_constraintStart_toEndOf="@id/button0"
@@ -315,7 +315,7 @@
                 android:text="="
                 android:textColor="#FBFBFB"
                 android:textSize="24dp"
-                android:onClick="@{()->viewModel.clickEquality()}"
+                android:onClick="@{()->calViewModel.clickEquality()}"
                 app:layout_constraintBottom_toBottomOf="@+id/dotButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/dotButton"

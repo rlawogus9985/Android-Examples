@@ -5,17 +5,23 @@ import java.util.*
 
 class Model {
     var expressionTexts: String = ""
-    var resultText: String = ""
+    var previousExpression = mutableListOf<String>()
 
     fun splitExp(exp: String): List<String> {
-        val regex = Regex("[*+\\-/%%]") // *, +, -, / 중 하나에 매칭되는 정규식 패턴
+        val regex = Regex("[*+\\-/%%()]") // *, +, -, /, % 중 하나에 매칭되는 정규식 패턴
         val tokens = regex.split(exp)
         val operators = regex.findAll(exp).map { it.value }.toList()
         val splitedExp = tokens.zip(operators.plus("")).flatMap { it.toList() }.filter{ it.isNotEmpty()}
         return splitedExp
     }
 
-    fun calculateExpression(exp: String) : String{
+    fun calculateExpression(_exp: String) : String{
+
+        val exp = when{
+            _exp.first() in "*/%" -> return ""
+            _exp.first() in "+-" -> "0$_exp"
+            else -> _exp
+        }
 
         val splitedExp = splitExp(exp)
 
@@ -86,11 +92,5 @@ class Model {
         }
     }
 
-    fun isItPossibleCalculate(exp: String): Boolean {
-        if(exp.last() in "+-*/"){
-            return false
-        }
-        return true
-    }
 
 }
