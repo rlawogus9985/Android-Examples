@@ -8,7 +8,7 @@
     android:background="#F5F5F5"
     tools:context=".MainActivity">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,18 +50,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:orientation="horizontal"
-                    android:layout_marginTop="292dp"
-                    />
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/dotsIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginBottom="48dp"/>
+                    android:layout_marginTop="292dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -426,14 +415,12 @@
                         android:layout_height="98dp"
                         android:background="@drawable/photo_video_shape"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/robert1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/photoVideoImageView2"
                         style="@style/photoVideoStyle"
-                        android:src="@drawable/robert2"
                         app:layout_constraintEnd_toStartOf="@id/photoVideoImageView3"
                         app:layout_constraintStart_toEndOf="@id/photoVideoImageView1"
                         app:layout_constraintTop_toTopOf="@id/photoVideoImageView1" />
@@ -441,7 +428,6 @@
                     <ImageView
                         android:id="@+id/photoVideoImageView3"
                         style="@style/photoVideoStyle"
-                        android:src="@drawable/robert3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/photoVideoImageView2" />
 
@@ -449,7 +435,6 @@
                         android:id="@+id/photoVideoImageView4"
                         style="@style/photoVideoStyle"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/robert4"
                         app:layout_constraintStart_toStartOf="@id/photoVideoImageView1"
                         app:layout_constraintTop_toBottomOf="@id/photoVideoImageView1" />
 
@@ -457,7 +442,6 @@
                         android:id="@+id/photoVideoImageView5"
                         style="@style/photoVideoStyle"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/robert5"
                         app:layout_constraintStart_toStartOf="@id/photoVideoImageView2"
                         app:layout_constraintTop_toBottomOf="@id/photoVideoImageView2" />
 
@@ -470,9 +454,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backDetailLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="22dp"
@@ -492,6 +477,7 @@
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
         <ImageButton
+            android:id="@+id/btnDetailMore"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_marginTop="8dp"
@@ -521,7 +507,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tinyProfileLayout"
         android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="109dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -559,7 +544,6 @@
                     android:id="@+id/tinyProfileImage"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/penguin1"
                     android:scaleType="centerCrop"
                     android:background="@drawable/round_button"
                     app:layout_constraintStart_toStartOf="parent"

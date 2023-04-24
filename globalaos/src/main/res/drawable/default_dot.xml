@@ -1,8 +1,8 @@
-<!-- default_dot.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:innerRadius="0dp"
-    android:shape="ring"
-    android:thickness="6dp"
-    android:useLevel="false">
-    <solid android:color="@color/gray_f_1" />
+    android:shape="oval">
+    <solid android:color="@color/gray_f_1"></solid>
+    <stroke
+        android:width="6dp"
+        android:color="@color/gray_f_1"/>
 </shape>

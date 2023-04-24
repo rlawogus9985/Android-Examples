@@ -1,16 +1,18 @@
 package com.example.globalaos
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.globalaos.databinding.ActivityMainBinding
 import kotlin.random.Random
 
@@ -19,13 +21,12 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var tinyProfileScrollThreshold: Number
-    private lateinit var indicatorAdapter: IndicatorAdapter
-    private lateinit var indicatorRecyclerView: RecyclerView
+
 
     private val BTN_UP_SCROLL_THRESHOLD = 200
     private var isTinyProfileVisible = false
 
-
+    // 뷰페이저2에 들어갈 이미지 주소
     private val imageUrlsList = arrayListOf(
         "https://cdn.newspenguin.com/news/photo/202009/3147_9206_5039.jpg",
         "https://t1.daumcdn.net/cfile/tistory/9952E24C5EA29AC52F",
@@ -33,12 +34,20 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         "https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/mbig/20210525090134676voqy.jpg",
         "https://jjal.today/data/file/gallery/1889155643_NZHvkRLz_e0292b65bb682075bfdb752a4d8f4062f0b7738a.png"
     )
-    private val dots = ArrayList<TextView>(imageUrlsList.size)
+
     private val imageIds = listOf(
         R.drawable.img_painter_01,
         R.drawable.img_painter_02,
         R.drawable.img_painter_03,
         R.drawable.img_painter_04
+    )
+    private val imageIds2 = arrayOf(
+        R.drawable.robert1,
+        R.drawable.robert2,
+        R.drawable.robert3,
+        R.drawable.robert4,
+        R.drawable.robert5,
+        R.drawable.penguin1
     )
 
 
@@ -49,12 +58,19 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.photoVideoImageView1.clipToOutline = true
-        binding.photoVideoImageView2.clipToOutline = true
-        binding.photoVideoImageView3.clipToOutline = true
-        binding.photoVideoImageView4.clipToOutline = true
-        binding.photoVideoImageView5.clipToOutline = true
-        binding.tinyProfileImage.clipToOutline = true
+        val imageViews = arrayOf(
+            binding.photoVideoImageView1,
+            binding.photoVideoImageView2,
+            binding.photoVideoImageView3,
+            binding.photoVideoImageView4,
+            binding.photoVideoImageView5,
+            binding.tinyProfileImage
+        )
+
+        for (i in imageViews.indices){
+            Glide.with(this).load(imageIds2[i]).into(imageViews[i])
+            imageViews[i].clipToOutline = true
+        }
 
         binding.scrollView.setOnScrollChangeListener(this)
         binding.scrollUpButton.setOnClickListener {
@@ -62,12 +78,14 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         }
 
         val viewPager = binding.viewPager2View
-        viewPager.adapter =  ImageSliderAdapter(this, imageUrlsList)
-        val adapter = viewPager.adapter
+        viewPager.adapter =  ImageSliderAdapter(imageUrlsList)
+//        val adapter = viewPager.adapter
         viewPager.setCurrentItem(  Int.MAX_VALUE / 2 - (Int.MAX_VALUE / 2) % imageUrlsList.size , false)
-        indicatorAdapter = IndicatorAdapter(imageUrlsList.size)
-        indicatorRecyclerView.adapter = indicatorAdapter
 
+
+        val indicatorRecyclerView = binding.indicatorRecycleView
+        val indicatorAdapter = IndicatorAdapter(imageUrlsList.size)
+        indicatorRecyclerView.adapter = indicatorAdapter
         indicatorRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
 
@@ -80,22 +98,19 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
                 indicatorAdapter.setCurrentPosition(realPosition)
             }
         })
-        //화면 위치 표시 생성
 
-        //화면 변경 시 이벤트 설정
-        binding.viewPager2View.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-            }
-        })
-
-
+        // 전체화면, 상태바 없애기
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         val params = binding.tinyProfileLayout.layoutParams
         params.height += getStatusBarHeight(this)
         binding.tinyProfileLayout.layoutParams = params
+
+        val params2 = binding.backDetailLayout.layoutParams as ViewGroup.MarginLayoutParams
+        params2.setMargins(0,getStatusBarHeight(this),0,0)
+        binding.backDetailLayout.layoutParams = params2
+
 
         val random = Random.Default
         val informationList = arrayListOf(
@@ -123,6 +138,27 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 
         rv_information.adapter = InformationAdapter(informationList)
 
+//        rv_information.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
+//            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+//                // 모든 터치 이벤트를 소비하여 스크롤을 막음
+//                return true
+//            }
+//            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+//            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+//        })
+
+//        binding.btnDetailMore.setOnClickListener{
+//            PopOver2(this, binding.btnDetailMore)
+//        }
+        binding.btnDetailMore.setOnClickListener{
+
+            val builder = PopOver(this, binding.btnDetailMore)
+            builder.window!!.setDimAmount(0f)
+            builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            builder.show()
+
+        }
+
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -131,6 +167,7 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
             val consLay = binding.secondInfoLayout
             tinyProfileScrollThreshold = consLay.top.toFloat()
             Log.d("abbb", "Top position of constraintLayout: $tinyProfileScrollThreshold")
+
         }
     }
 
@@ -176,8 +213,4 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
             }
         }
     }
-
-
-
-
 }

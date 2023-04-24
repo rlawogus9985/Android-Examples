@@ -1,6 +1,5 @@
 package com.example.globalaos
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 
-class ImageSliderAdapter(val context: Context, val sliderImage: ArrayList<String>) :
+class ImageSliderAdapter(val sliderImage: ArrayList<String>) :
     RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -30,7 +29,7 @@ class ImageSliderAdapter(val context: Context, val sliderImage: ArrayList<String
         private val mImageView = itemView.findViewById<ImageView>(R.id.imageSlider)
 
         fun bindSliderImage(imageURL: String?) {
-            Glide.with(context)
+            Glide.with(mImageView)
                 .load(imageURL)
                 .into(mImageView)
         }

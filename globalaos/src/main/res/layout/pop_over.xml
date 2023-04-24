@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/shape_rounded_background"
+    android:backgroundTint="@color/white"
+    android:fitsSystemWindows="true">
+
+    <TextView
+        android:id="@+id/blockButton"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:text="Block"
+        android:textSize="15dp"
+        android:textColor="@color/c202020"
+        android:fontFamily="@font/noto_sans_cjkkr_medium"
+        android:includeFontPadding="false"
+        android:gravity="center"
+        android:letterSpacing="-0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/blockReportBoundary"/>
+    <View
+        android:id="@+id/blockReportBoundary"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:background="#e1e1e1"
+        app:layout_constraintBottom_toTopOf="@id/reportButton"
+        app:layout_constraintTop_toBottomOf="@id/blockButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/blockButton"/>
+    <TextView
+        android:id="@+id/reportButton"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:text="Report"
+        android:textSize="15dp"
+        android:textColor="@color/c202020"
+        android:fontFamily="@font/noto_sans_cjkkr_medium"
+        android:includeFontPadding="false"
+        android:gravity="center"
+        android:letterSpacing="-0.05"
+        app:layout_constraintTop_toBottomOf="@id/blockReportBoundary"
+        app:layout_constraintStart_toStartOf="@id/blockButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

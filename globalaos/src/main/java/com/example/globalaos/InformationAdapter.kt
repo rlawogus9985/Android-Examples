@@ -22,6 +22,7 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
         return informationList.size
     }
 
+
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
 
         holder.painterImageView.layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -45,6 +46,9 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
             holder.painterImageView2.visibility = View.VISIBLE
         }
         holder.lockedButton.setOnClickListener{
+            if(holder.painterImageView.layoutParams.width > 290){
+                holder.painterImageView.layoutParams.width = 290
+            }
             holder.lockedButton.visibility = View.GONE
             holder.unlockButton.visibility = View.VISIBLE
         }
