@@ -1,19 +1,23 @@
 package com.example.globalaos
 
+import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.globalaos.databinding.ActivityMainBinding
+import com.example.globalaos.databinding.PopOverBinding
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
@@ -82,7 +86,6 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 //        val adapter = viewPager.adapter
         viewPager.setCurrentItem(  Int.MAX_VALUE / 2 - (Int.MAX_VALUE / 2) % imageUrlsList.size , false)
 
-
         val indicatorRecyclerView = binding.indicatorRecycleView
         val indicatorAdapter = IndicatorAdapter(imageUrlsList.size)
         indicatorRecyclerView.adapter = indicatorAdapter
@@ -103,10 +106,14 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        val params = binding.tinyProfileLayout.layoutParams
+        // statusbar 고려 tinyProfileLayout 설정
+
+        val params = binding.tinyProfileLayout.layoutParams as ViewGroup.MarginLayoutParams
         params.height += getStatusBarHeight(this)
+        params.setMargins(0, -params.height, 0, 0)
         binding.tinyProfileLayout.layoutParams = params
 
+        // statusbar 고려 backDetailLayout 마진 설정
         val params2 = binding.backDetailLayout.layoutParams as ViewGroup.MarginLayoutParams
         params2.setMargins(0,getStatusBarHeight(this),0,0)
         binding.backDetailLayout.layoutParams = params2
@@ -114,49 +121,52 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 
         val random = Random.Default
         val informationList = arrayListOf(
-            Informations("First name","Mark serra", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Sexual Orientation","Female", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Ethnicity","Middle eastern", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Height","180cm", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Body type","Dignified", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Job","Model", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Personality","Easygoing", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Smoke","Trying to quit", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Drink","Only socially", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Religion","Christianity", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Education","High School Graduate", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Language","Japanese", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Child","None", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Parenting Plan","Discuss", random.nextInt(156),imageIds[random.nextInt(4)],null),
-            Informations("Interests",this.getString(R.string.interests), random.nextInt(156),imageIds[random.nextInt(4)],imageIds[random.nextInt(4)]),
-            Informations("Favorite Food",this.getString(R.string.favoriteFood), random.nextInt(156),imageIds[random.nextInt(4)],imageIds[random.nextInt(4)]),
-            Informations("Exercise",this.getString(R.string.exercise), random.nextInt(156),imageIds[random.nextInt(4)],imageIds[random.nextInt(4)])
+            Informations("First name","Mark serra", random.nextInt(156),imageIds.random(),null),
+            Informations("Sexual Orientation","Female", random.nextInt(156),imageIds.random(),null),
+            Informations("Ethnicity","Middle eastern", random.nextInt(156),imageIds.random(),null),
+            Informations("Height","180cm", random.nextInt(156),imageIds.random(),null),
+            Informations("Body type","Dignified", random.nextInt(156),imageIds.random(),null),
+            Informations("Job","Model", random.nextInt(156),imageIds.random(),null),
+            Informations("Personality","Easygoing", random.nextInt(156),imageIds.random(),null),
+            Informations("Smoke","Trying to quit", random.nextInt(156),imageIds.random(),null),
+            Informations("Drink","Only socially", random.nextInt(156),imageIds.random(),null),
+            Informations("Religion","Christianity", random.nextInt(156),imageIds.random(),null),
+            Informations("Education","High School Graduate", random.nextInt(156),imageIds.random(),null),
+            Informations("Language","Japanese", random.nextInt(156),imageIds.random(),null),
+            Informations("Child","None", random.nextInt(156),imageIds.random(),null),
+            Informations("Parenting Plan","Discuss", random.nextInt(156),imageIds.random(),null),
+            Informations("Interests",this.getString(R.string.interests), random.nextInt(156),imageIds.random(),imageIds.random()),
+            Informations("Favorite Food",this.getString(R.string.favoriteFood), random.nextInt(156),imageIds.random(),imageIds.random()),
+            Informations("Exercise",this.getString(R.string.exercise), random.nextInt(156),imageIds.random(),imageIds.random())
         )
         val rv_information = binding.recyclerViewInformation
         rv_information.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv_information.setHasFixedSize(true)
-
         rv_information.adapter = InformationAdapter(informationList)
 
-//        rv_information.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-//            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-//                // 모든 터치 이벤트를 소비하여 스크롤을 막음
-//                return true
-//            }
-//            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
-//            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-//        })
 
-//        binding.btnDetailMore.setOnClickListener{
-//            PopOver2(this, binding.btnDetailMore)
-//        }
+        val popupBinding = PopOverBinding.inflate(layoutInflater)
+        val width = LinearLayout.LayoutParams.WRAP_CONTENT
+        val height = LinearLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true
+
+        val popupWindow = PopupWindow(popupBinding.root, width, height, focusable)
+
+        popupBinding.blockButton.setOnClickListener{
+            Toast.makeText(this, "block",Toast.LENGTH_SHORT).show()
+            popupWindow.dismiss()
+        }
+        popupBinding.reportButton.setOnClickListener{
+            Toast.makeText(this, "report",Toast.LENGTH_SHORT).show()
+            popupWindow.dismiss()
+        }
+
         binding.btnDetailMore.setOnClickListener{
 
-            val builder = PopOver(this, binding.btnDetailMore)
-            builder.window!!.setDimAmount(0f)
-            builder.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            builder.show()
-
+            popupWindow.showAtLocation(binding.btnDetailMore, Gravity.NO_GRAVITY,
+                binding.popUpLayout.x.toInt() ,
+                binding.popUpLayout.y.toInt())
+            popupWindow.setOnDismissListener {  }
         }
 
     }
@@ -192,23 +202,20 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 
         if (scrollY > tinyProfileScrollThreshold.toFloat()) {
             if (!isTinyProfileVisible) {
-                binding.tinyProfileLayout.alpha = 0f
-                binding.tinyProfileLayout.visibility = View.VISIBLE
-                binding.tinyProfileLayout.translationY = -binding.tinyProfileLayout.height.toFloat()
-                binding.tinyProfileLayout.animate().alpha(1f).translationY(0f).setDuration(500)
-                    .withEndAction(null).start()
+                val slideDown = ObjectAnimator.ofFloat(binding.tinyProfileLayout,
+                    "translationY",
+                    binding.tinyProfileLayout.height.toFloat())
+                slideDown.duration = 500
+                slideDown.start()
                 isTinyProfileVisible = true
             }
         } else {
             if (isTinyProfileVisible) {
-                binding.tinyProfileLayout.animate()
-                    .alpha(0f)
-                    .translationY(-binding.tinyProfileLayout.height.toFloat())
-                    .setDuration(500)
-                    .withEndAction {
-                        binding.tinyProfileLayout.visibility = View.GONE
-                    }
-                    .start()
+                val slideDown = ObjectAnimator.ofFloat(binding.tinyProfileLayout,
+                    "translationY",
+                    -binding.tinyProfileLayout.height.toFloat())
+                slideDown.duration = 500
+                slideDown.start()
                 isTinyProfileVisible = false
             }
         }

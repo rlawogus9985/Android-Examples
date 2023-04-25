@@ -16,6 +16,13 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="RegularTextStyle">
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="fontFamily">@font/noto_sans_cjkkr_regular</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
     <style name="YellowUnderline">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">9dp</item>
@@ -27,6 +34,12 @@
         <item name="android:layout_height">98dp</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:background">@drawable/photo_video_shape</item>
+    </style>
+    <style name="barButtonStyle">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@null</item>
     </style>
 
 </resources>

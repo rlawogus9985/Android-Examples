@@ -4,9 +4,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.globalaos.databinding.ListInformationBinding
 import kotlin.random.Random
 
 class InformationAdapter(val informationList:ArrayList<Informations>) : RecyclerView.Adapter<InformationAdapter.CustomViewHolder>(){
@@ -14,8 +13,8 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_information,parent,false)
-        return CustomViewHolder(view)
+        val binding = ListInformationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CustomViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -34,6 +33,7 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
             holder.painterImageView.context.resources.displayMetrics).toInt()
 
         holder.painterImageView.setImageResource(informationList.get(position).painterImageNumber)
+
         informationList.get(position).painterImageNumber2?.let {
             holder.painterImageView2.setImageResource(
                 it
@@ -61,12 +61,12 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
         }
     }
 
-    class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val painterImageView = itemView.findViewById<ImageView>(R.id.painterImageView)
-        val painterImageView2 = itemView.findViewById<ImageView>(R.id.painterImageView2)
-        val question = itemView.findViewById<TextView>(R.id.questionInformation)
-        val answer = itemView.findViewById<TextView>(R.id.answerInformation)
-        val lockedButton = itemView.findViewById<ImageView>(R.id.iconLocked)
-        val unlockButton = itemView.findViewById<TextView>(R.id.iconUnlock)
+    class CustomViewHolder(private val binding: ListInformationBinding) : RecyclerView.ViewHolder(binding.root){
+        val painterImageView = binding.painterImageView
+        val question = binding.questionInformation
+        val answer = binding.answerInformation
+        val lockedButton = binding.iconLocked
+        val unlockButton = binding.iconUnlock
+        val painterImageView2 = binding.painterImageView2
     }
 }

@@ -83,15 +83,10 @@
 
                     <TextView
                         android:id="@+id/userNameTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/noto_sans_cjkkr_bold"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.03"
+                        style="@style/BoldTextStyle"
                         android:text="@string/usr_name"
                         android:textColor="@color/nickname_m"
                         android:textSize="18dp"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -110,17 +105,12 @@
 
                     <TextView
                         android:id="@+id/ageTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/NormalTextStyle"
                         android:layout_marginStart="6dp"
                         android:layout_marginTop="2dp"
-                        android:fontFamily="@font/noto_sans_cjkkr_medium"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.03"
                         android:text="22"
                         android:textColor="#505050"
                         android:textSize="16dp"
-                        android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/barImageView"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -158,16 +148,11 @@
 
                     <TextView
                         android:id="@+id/nationTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/NormalTextStyle"
                         android:layout_marginStart="4dp"
-                        android:fontFamily="@font/noto_sans_cjkkr_medium"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.03"
                         android:text="NewYork, USA"
                         android:textColor="#707070"
                         android:textSize="12dp"
-                        android:textStyle="normal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/locationIconImageView"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -206,16 +191,11 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/NormalTextStyle"
                             android:drawablePadding="2dp"
-                            android:fontFamily="@font/noto_sans_cjkkr_medium"
-                            android:includeFontPadding="false"
-                            android:letterSpacing="-0.03"
                             android:text="Like"
                             android:textColor="#505050"
                             android:textSize="14dp"
-                            android:textStyle="normal"
                             app:drawableStartCompat="@drawable/icon_like"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -240,17 +220,12 @@
 
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/NormalTextStyle"
                             android:drawablePadding="5dp"
-                            android:fontFamily="@font/noto_sans_cjkkr_medium"
                             android:gravity="center"
-                            android:includeFontPadding="false"
-                            android:letterSpacing="-0.03"
                             android:text="Video Chat"
                             android:textColor="#505050"
                             android:textSize="14dp"
-                            android:textStyle="normal"
                             app:drawableStartCompat="@drawable/icon_vchat"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -272,17 +247,12 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            style="@style/NormalTextStyle"
                             android:drawableStart="@drawable/icon_contact"
                             android:drawablePadding="2dp"
-                            android:fontFamily="@font/noto_sans_cjkkr_medium"
-                            android:includeFontPadding="false"
-                            android:letterSpacing="-0.03"
                             android:text="Chat"
                             android:textColor="#202020"
                             android:textSize="14dp"
-                            android:textStyle="normal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -323,26 +293,17 @@
                         app:layout_constraintStart_toStartOf="@id/aboutMeTextView" />
 
                     <TextView
+                        style="@style/BoldTextStyle"
                         android:id="@+id/aboutMeTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/noto_sans_cjkkr_bold"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.03"
                         android:text="@string/about_me"
                         android:textColor="@color/c202020"
                         android:textSize="13dp"
-                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/RegularTextStyle"
                         android:layout_marginTop="8dp"
-                        android:fontFamily="@font/noto_sans_cjkkr_regular"
-                        android:includeFontPadding="false"
-                        android:letterSpacing="-0.03"
                         android:text="@string/about_me_context"
                         android:textColor="@color/c202020"
                         android:textSize="14dp"
@@ -411,10 +372,7 @@
 
                     <ImageView
                         android:id="@+id/photoVideoImageView1"
-                        android:layout_width="98dp"
-                        android:layout_height="98dp"
-                        android:background="@drawable/photo_video_shape"
-                        android:scaleType="centerCrop"
+                        style="@style/photoVideoStyle"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -466,27 +424,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@null"
+            style="@style/barButtonStyle"
             android:src="@drawable/btn_detail_back"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnDetailMore"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@null"
+            style="@style/barButtonStyle"
             android:src="@drawable/btn_detail_more"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
@@ -506,9 +456,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tinyProfileLayout"
-        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="109dp"
+        android:layout_marginTop="-109dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -596,18 +547,15 @@
                     android:text="New York, USA"
                     app:layout_constraintStart_toStartOf="@id/tinyProfileName"
                     app:layout_constraintTop_toBottomOf="@id/tinyProfileName"
-                    android:drawableStart="@drawable/icon_location_w"
-                    android:drawableEnd="@drawable/badge_nation"
                     android:drawablePadding="3dp"
                     android:gravity="bottom"
-                    />
+                    app:drawableStartCompat="@drawable/icon_location_w"
+                    app:drawableEndCompat="@drawable/badge_nation" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                style="@style/barButtonStyle"
                 android:src="@drawable/btn_detail_more_w"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -637,16 +585,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/NormalTextStyle"
                     android:drawablePadding="2dp"
-                    android:fontFamily="@font/noto_sans_cjkkr_medium"
-                    android:includeFontPadding="false"
-                    android:letterSpacing="-0.03"
                     android:text="Like"
                     android:textColor="#505050"
                     android:textSize="14dp"
-                    android:textStyle="normal"
                     app:drawableStartCompat="@drawable/icon_like"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -671,17 +614,12 @@
 
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/NormalTextStyle"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/noto_sans_cjkkr_medium"
                     android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:letterSpacing="-0.03"
                     android:text="Video Chat"
                     android:textColor="#505050"
                     android:textSize="14dp"
-                    android:textStyle="normal"
                     app:drawableStartCompat="@drawable/icon_vchat"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -703,17 +641,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/NormalTextStyle"
                     android:drawableStart="@drawable/icon_contact"
                     android:drawablePadding="2dp"
-                    android:fontFamily="@font/noto_sans_cjkkr_medium"
-                    android:includeFontPadding="false"
-                    android:letterSpacing="-0.03"
                     android:text="Chat"
                     android:textColor="#202020"
                     android:textSize="14dp"
-                    android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -723,6 +656,62 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/popUpLayout"
+        android:background="@drawable/shape_rounded_background"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backDetailLayout"
+        android:backgroundTint="@color/white"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/blockButton"
+            android:layout_width="120dp"
+            android:layout_height="44dp"
+            android:text="Block"
+            android:textSize="15dp"
+            android:textColor="@color/c202020"
+            android:fontFamily="@font/noto_sans_cjkkr_medium"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:letterSpacing="-0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/blockReportBoundary"/>
+        <View
+            android:id="@+id/blockReportBoundary"
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:background="#e1e1e1"
+            app:layout_constraintBottom_toTopOf="@id/reportButton"
+            app:layout_constraintTop_toBottomOf="@id/blockButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/blockButton"/>
+        <TextView
+            android:id="@+id/reportButton"
+            android:layout_width="120dp"
+            android:layout_height="44dp"
+            android:text="Report"
+            android:textSize="15dp"
+            android:textColor="@color/c202020"
+            android:fontFamily="@font/noto_sans_cjkkr_medium"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:letterSpacing="-0.05"
+            app:layout_constraintTop_toBottomOf="@id/blockReportBoundary"
+            app:layout_constraintStart_toStartOf="@id/blockButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

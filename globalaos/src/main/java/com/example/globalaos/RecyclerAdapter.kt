@@ -1,20 +1,18 @@
 package com.example.globalaos
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.globalaos.databinding.ItemSliderBinding
 
 
 class ImageSliderAdapter(val sliderImage: ArrayList<String>) :
     RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view: View = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_slider, parent, false)
-        return MyViewHolder(view)
+        val binding = ItemSliderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -25,8 +23,8 @@ class ImageSliderAdapter(val sliderImage: ArrayList<String>) :
         return Int.MAX_VALUE
     }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val mImageView = itemView.findViewById<ImageView>(R.id.imageSlider)
+    inner class MyViewHolder(val binding: ItemSliderBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val mImageView = binding.imageSlider
 
         fun bindSliderImage(imageURL: String?) {
             Glide.with(mImageView)

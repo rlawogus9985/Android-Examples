@@ -2,9 +2,9 @@ package com.example.globalaos
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.globalaos.databinding.IndicatorBinding
 
 class IndicatorAdapter(private val itemCount: Int) :
     RecyclerView.Adapter<IndicatorAdapter.IndicatorViewHolder>() {
@@ -12,9 +12,8 @@ class IndicatorAdapter(private val itemCount: Int) :
     private var currentPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndicatorViewHolder {
-        val view: View = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.indicator, parent, false)
-        return IndicatorViewHolder(view)
+        val binding = IndicatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return IndicatorViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: IndicatorViewHolder, position: Int) {
@@ -27,14 +26,12 @@ class IndicatorAdapter(private val itemCount: Int) :
         notifyDataSetChanged()
     }
 
-    inner class IndicatorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val indicatorView: View = itemView.findViewById(R.id.indicatorImageView)
-
+    inner class IndicatorViewHolder(private val binding: IndicatorBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             if (position == currentPosition) {
-                indicatorView.setBackgroundResource(R.drawable.selected_dot)
+                binding.indicatorImageView.setBackgroundResource(R.drawable.selected_dot)
             } else {
-                indicatorView.setBackgroundResource(R.drawable.default_dot)
+                binding.indicatorImageView.setBackgroundResource(R.drawable.default_dot)
             }
         }
     }
