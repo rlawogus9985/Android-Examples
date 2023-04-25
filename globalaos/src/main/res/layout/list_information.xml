@@ -24,6 +24,7 @@
             app:layout_constraintWidth_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 style="@style/YellowUnderline"
                 app:layout_constraintBottom_toBottomOf="@id/questionInformation"
@@ -33,6 +34,7 @@
             <TextView
                 android:id="@+id/questionInformation"
                 style="@style/BoldTextStyle"
+                android:bufferType="spannable"
                 android:layout_marginTop="3dp"
                 android:text="Exercise"
                 android:textColor="@color/c202020"

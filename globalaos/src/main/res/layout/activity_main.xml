@@ -357,10 +357,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- Photo Video Storage -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/photoRecylcerView"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="12dp"
@@ -368,43 +368,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/photoVideoTextView">
+                    app:layout_constraintTop_toBottomOf="@id/photoVideoTextView"/>
 
-                    <ImageView
-                        android:id="@+id/photoVideoImageView1"
-                        style="@style/photoVideoStyle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/photoVideoImageView2"
-                        style="@style/photoVideoStyle"
-                        app:layout_constraintEnd_toStartOf="@id/photoVideoImageView3"
-                        app:layout_constraintStart_toEndOf="@id/photoVideoImageView1"
-                        app:layout_constraintTop_toTopOf="@id/photoVideoImageView1" />
-
-                    <ImageView
-                        android:id="@+id/photoVideoImageView3"
-                        style="@style/photoVideoStyle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/photoVideoImageView2" />
-
-                    <ImageView
-                        android:id="@+id/photoVideoImageView4"
-                        style="@style/photoVideoStyle"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toStartOf="@id/photoVideoImageView1"
-                        app:layout_constraintTop_toBottomOf="@id/photoVideoImageView1" />
-
-                    <ImageView
-                        android:id="@+id/photoVideoImageView5"
-                        style="@style/photoVideoStyle"
-                        android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toStartOf="@id/photoVideoImageView2"
-                        app:layout_constraintTop_toBottomOf="@id/photoVideoImageView2" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

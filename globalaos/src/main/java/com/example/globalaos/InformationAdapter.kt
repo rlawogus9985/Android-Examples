@@ -1,5 +1,10 @@
 package com.example.globalaos
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -40,9 +45,18 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
             )
         }
 
-        holder.question.text = informationList.get(position).question
+        val spannable = SpannableString(informationList.get(position).question)
+        Log.d("absd","${informationList.get(position).question}")
+
+        val backgroundColorSpan = BackgroundColorSpan(Color.RED)
+        spannable.setSpan(backgroundColorSpan,0,1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        holder.question.text = spannable
+
+//        holder.question.text = informationList.get(position).question
+
         holder.answer.text = informationList.get(position).answer
-        if (position > 13){
+
+        if (position > informationList.size-4){
             holder.painterImageView2.visibility = View.VISIBLE
         }
         holder.lockedButton.setOnClickListener{

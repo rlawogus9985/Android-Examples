@@ -13,9 +13,11 @@ import android.widget.PopupWindow
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.globalaos.Adapter.PhotoAdapter
 import com.example.globalaos.databinding.ActivityMainBinding
 import com.example.globalaos.databinding.PopOverBinding
 import kotlin.random.Random
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var tinyProfileScrollThreshold: Number
+    private lateinit var photoLayoutWidth: Number
 
 
     private val BTN_UP_SCROLL_THRESHOLD = 200
@@ -63,11 +66,11 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         setContentView(binding.root)
 
         val imageViews = arrayOf(
-            binding.photoVideoImageView1,
-            binding.photoVideoImageView2,
-            binding.photoVideoImageView3,
-            binding.photoVideoImageView4,
-            binding.photoVideoImageView5,
+//            binding.photoVideoImageView1,
+//            binding.photoVideoImageView2,
+//            binding.photoVideoImageView3,
+//            binding.photoVideoImageView4,
+//            binding.photoVideoImageView5,
             binding.tinyProfileImage
         )
 
@@ -145,6 +148,7 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         rv_information.adapter = InformationAdapter(informationList)
 
 
+
         val popupBinding = PopOverBinding.inflate(layoutInflater)
         val width = LinearLayout.LayoutParams.WRAP_CONTENT
         val height = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -169,6 +173,13 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
             popupWindow.setOnDismissListener {  }
         }
 
+        val photoRV = binding.photoRecylcerView
+        val spanCount = photoLayoutWidth.toInt().div(98.dpToPx())
+        Log.d("spancount","${spanCount}")
+        val photoLM = GridLayoutManager(this, 3)
+        photoRV.adapter = PhotoAdapter(imageIds2)
+        photoRV.layoutManager = photoLM
+
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -176,7 +187,9 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         if(hasFocus){
             val consLay = binding.secondInfoLayout
             tinyProfileScrollThreshold = consLay.top.toFloat()
+            photoLayoutWidth = binding.photoRecylcerView.width
             Log.d("abbb", "Top position of constraintLayout: $tinyProfileScrollThreshold")
+            Log.d("abbb", "photolayoutwidth: $photoLayoutWidth")
 
         }
     }
@@ -219,5 +232,8 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
                 isTinyProfileVisible = false
             }
         }
+    }
+    fun Int.dpToPx(): Int {
+        return (this * resources.displayMetrics.density).toInt()
     }
 }
