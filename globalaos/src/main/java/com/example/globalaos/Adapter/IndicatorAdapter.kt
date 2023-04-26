@@ -1,9 +1,10 @@
-package com.example.globalaos
+package com.example.globalaos.Adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.globalaos.R
 import com.example.globalaos.databinding.IndicatorBinding
 
 class IndicatorAdapter(private val itemCount: Int) :

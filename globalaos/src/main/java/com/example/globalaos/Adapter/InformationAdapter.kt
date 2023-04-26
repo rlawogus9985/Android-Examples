@@ -1,15 +1,16 @@
-package com.example.globalaos
+package com.example.globalaos.Adapter
 
-import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.globalaos.Data.Informations
+import com.example.globalaos.HighlightSpan
+import com.example.globalaos.R
 import com.example.globalaos.databinding.ListInformationBinding
 import kotlin.random.Random
 
@@ -46,9 +47,8 @@ class InformationAdapter(val informationList:ArrayList<Informations>) : Recycler
         }
 
         val spannable = SpannableString(informationList.get(position).question)
-        Log.d("absd","${informationList.get(position).question}")
-
-        val backgroundColorSpan = BackgroundColorSpan(Color.RED)
+        val backgroundColorSpan =
+            HighlightSpan(ContextCompat.getColor(holder.itemView.context, R.color.primary_300))
         spannable.setSpan(backgroundColorSpan,0,1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         holder.question.text = spannable
 

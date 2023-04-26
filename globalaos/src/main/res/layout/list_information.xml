@@ -102,6 +102,7 @@
                     android:text="Unlock !"
                     android:textSize="14dp"
                     android:visibility="gone"
+                    android:textColor="@color/c505050"
                     app:drawableStartCompat="@drawable/ico_unlock_505050"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
