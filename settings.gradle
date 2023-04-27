@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +11,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 rootProject.name = "AndroidLab"
@@ -26,3 +28,4 @@ include ':mvvmtest'
 include ':mvvmhowlstagram'
 include ':calculator_mvvm'
 include ':globalaos'
+include ':dallamain'

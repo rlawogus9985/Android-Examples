@@ -10,6 +10,7 @@ import android.widget.PopupWindow
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -20,6 +21,8 @@ import com.example.globalaos.Adapter.PhotoAdapter
 import com.example.globalaos.Data.Informations
 import com.example.globalaos.databinding.ActivityMainBinding
 import com.example.globalaos.databinding.PopOverBinding
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
@@ -111,6 +114,19 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 //        indicator.setViewPager(viewPager)
         indicator.createIndicators(imageUrlsList.size, 0)
 
+        // 오픈소스를 활용한 zhpanIndicator
+        val zhpanIndicator = binding.zhpanIndicator
+        val checkedColor = ContextCompat.getColor(this, R.color.primary_500)
+        val normalColor = ContextCompat.getColor(this, R.color.gray_f_1)
+        zhpanIndicator?.apply{
+            setSliderColor(normalColor,checkedColor)
+            setSliderWidth(resources.getDimension(R.dimen.dp_8))
+            setSlideMode(IndicatorSlideMode.NORMAL)
+            setIndicatorStyle(IndicatorStyle.CIRCLE)
+            setPageSize(imageUrlsList.size)
+            notifyDataChanged()
+        }
+
         //뷰페이저 페이지 변경 리스너 추가
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
@@ -119,6 +135,9 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
                 val realPosition = position % imageUrlsList.size
                 indicatorAdapter.setCurrentPosition(realPosition)
                 indicator.animatePageSelected(realPosition)
+                if (zhpanIndicator != null) {
+                    zhpanIndicator.onPageSelected(realPosition)
+                }
             }
         })
 
@@ -131,6 +150,8 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         params.height += getStatusBarHeight(this)
         params.setMargins(0, -params.height, 0, 0)
         binding.tinyProfileLayout.layoutParams = params
+        // 레이아웃 밑에 깔린 터치 막기
+        binding.tinyProfileLayout.setOnTouchListener { _, _ -> true }
 
         // statusbar 고려 backDetailLayout 마진 설정
         val params2 = binding.backDetailLayout.layoutParams as ViewGroup.MarginLayoutParams
@@ -171,12 +192,21 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         val focusable = true
         val popupWindow = PopupWindow(popupBinding.root, width, height, focusable)
 
-        binding.btnDetailMore.setOnClickListener{
+        fun showPopupWindow() {
             popupWindow.showAtLocation(binding.btnDetailMore, Gravity.NO_GRAVITY,
                 binding.popUpLayout.x.toInt() ,
                 binding.popUpLayout.y.toInt())
             popupWindow.setOnDismissListener {  }
         }
+
+        binding.btnDetailMore.setOnClickListener{
+            showPopupWindow()
+        }
+
+        binding.btnDetailMoreW?.setOnClickListener {
+            showPopupWindow()
+        }
+
         popupBinding.blockButton.setOnClickListener{
             Toast.makeText(this, "block",Toast.LENGTH_SHORT).show()
             popupWindow.dismiss()

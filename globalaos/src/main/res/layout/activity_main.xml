@@ -66,6 +66,15 @@
                     app:ci_width="8dp"
                     app:ci_margin="8dp"
                     />
+                <com.zhpan.indicator.IndicatorView
+                    android:id="@+id/zhpanIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="100dp"
+                    />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -535,6 +544,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
+                android:id="@+id/btnDetailMoreW"
                 style="@style/barButtonStyle"
                 android:src="@drawable/btn_detail_more_w"
                 android:layout_marginEnd="8dp"
