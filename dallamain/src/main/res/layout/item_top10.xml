@@ -16,6 +16,13 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     <ImageView
+        android:layout_width="116dp"
+        android:layout_height="55dp"
+        android:src="@drawable/gradient_top10"
+        app:layout_constraintBottom_toBottomOf="@id/top10ProfileImage"
+        app:layout_constraintStart_toStartOf="@id/top10ProfileImage"
+        app:layout_constraintEnd_toEndOf="@id/top10ProfileImage"/>
+    <ImageView
         android:id="@+id/top10Number"
         android:layout_width="49dp"
         android:layout_height="48dp"

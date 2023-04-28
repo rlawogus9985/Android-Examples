@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/purple_500"
     tools:context=".MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/footerLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/footerLayout">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -120,36 +123,120 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/announceLayout"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/announce_background"
+                android:backgroundTint="#fff3f7"
+                app:layout_constraintTop_toBottomOf="@id/top10Layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+                <TextView
+                    android:id="@+id/announceText"
+                    style="@style/suitMediumStyle"
+                    android:drawableStart="@drawable/img_tip"
+                    android:gravity="center"
+                    android:drawablePadding="13dp"
+                    android:lineSpacingExtra="25dp"
+                    android:textSize="13dp"
+                    android:textColor="#303030"
+                    android:text="@string/announce"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ico_drop_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/bannerViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:layout_marginTop="32dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/top10Layout"/>
-            
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/announceLayout" />
+
             <TextView
                 android:id="@+id/bannerText"
                 android:layout_width="55dp"
                 android:layout_height="20dp"
-                android:fontFamily="@font/suit_medium"
-                android:textStyle="normal"
-                android:textSize="13dp"
-                android:textColor="@color/white"
-                android:includeFontPadding="false"
                 android:layout_marginBottom="15dp"
-                tools:text="1 / 9"
-                android:paddingStart="8dp"
-                android:drawableEnd="@drawable/banner_arrow"
-                android:gravity="center_horizontal"
                 android:background="@drawable/banner_count_background"
+                android:drawableEnd="@drawable/banner_arrow"
+                android:fontFamily="@font/suit_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingStart="8dp"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="@id/bannerViewPager"
-                app:layout_constraintEnd_toEndOf="@id/bannerViewPager"/>
+                app:layout_constraintEnd_toEndOf="@id/bannerViewPager"
+                tools:text="1 / 9" />
+
+            <TextView
+                android:id="@+id/nowLiveText"
+                style="@style/suitSemiBoldStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:letterSpacing="-0.03"
+                android:text="🚀 지금 라이브 중!"
+                android:textColor="#202020"
+                android:textSize="19dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bannerViewPager" />
 
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutLiveSection"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nowLiveText"
+                app:tabIndicatorColor="#ff3c7b"
+                app:tabIndicator="@drawable/tab_selector"
+                app:tabIndicatorHeight="5dp"
+                app:tabSelectedTextColor="#202020"
+                app:tabTextAppearance="@style/tabLayoutStyle">
+
+            </com.google.android.material.tabs.TabLayout>
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/liveSectionRecylcerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tabLayoutLiveSection"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+                
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </ScrollView>
 
@@ -208,65 +295,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/footerLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <ImageView
-            android:id="@+id/footerLive"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:src="@drawable/footer_live"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/footerClipD"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/footer_clip_d"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/footerPlus"
-            app:layout_constraintStart_toEndOf="@id/footerLive"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/footerPlus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/footer_plus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/footerSearchD"
-            app:layout_constraintStart_toEndOf="@id/footerClipD"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/footerSearchD"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/footer_search_d"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/footerMyD"
-            app:layout_constraintStart_toEndOf="@id/footerPlus"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/footerMyD"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/footer_my_d"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:itemIconSize="40dp"
+        app:menu="@menu/navi_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

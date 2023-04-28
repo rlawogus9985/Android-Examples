@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/footerLive"
+        android:title=""
+        android:icon="@drawable/selector_footer_live"
+        />
+    <item android:id="@+id/footerClip"
+        android:title=""
+        android:icon="@drawable/selector_footer_clip_d"
+        />
+    <item android:id="@+id/footerPlus"
+        android:title=""
+        android:icon="@drawable/footer_plus"
+        />
+    <item android:id="@+id/footerSearch"
+        android:title=""
+        android:icon="@drawable/selector_footer_search_d"/>
+    <item android:id="@+id/footerMy"
+        android:title=""
+        android:icon="@drawable/selector_footer_my_d"/>
+</menu>
