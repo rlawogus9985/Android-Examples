@@ -22,5 +22,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topbnrTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/gradientTopbnr"
+        app:layout_constraintStart_toStartOf="@id/gradientTopbnr">
+        <TextView
+            android:id="@+id/topbnrDjName"
+            style="@style/suitRegularStyle"
+            android:letterSpacing="-0.03"
+            android:textColor="#202020"
+            android:textSize="14dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/topbnrTextLayout"
+            app:layout_constraintStart_toStartOf="@id/topbnrTextLayout"
+            />
+        <TextView
+            android:id="@+id/topbnrTitle"
+            style="@style/suitSemiBoldStyle"
+            android:letterSpacing="-0.03"
+            android:textSize="24dp"
+            android:textColor="#202020"
+            android:lineSpacingExtra="6dp"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintStart_toStartOf="@id/topbnrDjName"
+            app:layout_constraintBottom_toTopOf="@id/topbnrDjName"
+            />
+        <ImageView
+            android:id="@+id/topbnrBdg"
+            android:layout_width="45dp"
+            android:layout_height="18dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/topbnrTitle"
+            app:layout_constraintStart_toStartOf="@id/topbnrTitle"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

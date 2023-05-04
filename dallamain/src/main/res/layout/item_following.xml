@@ -9,7 +9,6 @@
         android:id="@+id/firstBackground"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="6dp"
         android:layout_marginEnd="4dp"
         android:src="@drawable/gradient_pink_circle_background"
         app:layout_constraintTop_toTopOf="parent"

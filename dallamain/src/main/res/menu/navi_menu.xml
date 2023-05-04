@@ -10,7 +10,7 @@
         />
     <item android:id="@+id/footerPlus"
         android:title=""
-        android:icon="@drawable/footer_plus"
+        android:icon="@drawable/selector_footer_plus"
         />
     <item android:id="@+id/footerSearch"
         android:title=""

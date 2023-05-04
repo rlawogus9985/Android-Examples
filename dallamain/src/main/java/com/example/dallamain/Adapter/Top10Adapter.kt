@@ -1,5 +1,6 @@
 package com.example.dallamain.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,20 @@ class Top10Adapter(val item: ArrayList<Top10Data>) : RecyclerView.Adapter<Top10A
         Glide.with(holder.itemView.context)
             .load(currentItem.number)
             .into(holder.number)
+
+        if (position == 0){
+            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.setMargins(dpToPx(16, holder.itemView.context),0,dpToPx(8, holder.itemView.context),0)
+            holder.itemView.layoutParams = layoutParams
+        } else if (position == item.size - 1){
+            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.setMargins(0,0,dpToPx(16, holder.itemView.context),0)
+            holder.itemView.layoutParams = layoutParams
+        } else {
+            val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.setMargins(0,0,dpToPx(8, holder.itemView.context),0)
+            holder.itemView.layoutParams = layoutParams
+        }
     }
 
 
@@ -36,5 +51,9 @@ class Top10Adapter(val item: ArrayList<Top10Data>) : RecyclerView.Adapter<Top10A
 
     override fun getItemCount(): Int {
         return item.size
+    }
+    fun dpToPx(dp: Int, context: Context): Int {
+        val density = context.resources.displayMetrics.density
+        return (dp * density).toInt()
     }
 }

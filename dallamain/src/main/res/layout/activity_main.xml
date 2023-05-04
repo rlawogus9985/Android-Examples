@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/purple_500"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
-    <ScrollView
+
+
+    <com.example.dallamain.CustomScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/footerLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-16dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,12 +30,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/sampleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="asdkl;fs;lakdnfsdf"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/followingRecylcerView"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +55,6 @@
                 android:id="@+id/top10Layout"
                 android:layout_width="match_parent"
                 android:layout_height="221dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +74,7 @@
                     android:textColor="#202020"
                     android:textSize="19dp"
                     android:textStyle="normal"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -211,6 +222,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="4dp"
+                app:tabRippleColor="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nowLiveText"
@@ -238,7 +250,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
+    </com.example.dallamain.CustomScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/actionBarW"
@@ -254,44 +266,44 @@
             android:layout_width="71dp"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginBottom="13dp"
             android:src="@drawable/dalla_logo"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/btnAlarmW"
             style="@style/actionbarBtnStyle"
             android:src="@drawable/btn_alarm_w"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/btnMessageW"
             style="@style/actionbarBtnStyle"
             android:src="@drawable/btn_message_w"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnAlarmW"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/btnAlarmW" />
 
         <ImageView
             android:id="@+id/btnRankingW"
             style="@style/actionbarBtnStyle"
             android:src="@drawable/btn_ranking_w"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnMessageW"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/btnMessageW" />
 
         <ImageView
             android:id="@+id/btnStoreW"
             style="@style/actionbarBtnStyle"
             android:src="@drawable/btn_store_w"
+            android:layout_marginBottom="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnRankingW"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/btnRankingW" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -301,6 +313,8 @@
         android:layout_height="50dp"
         app:itemIconSize="40dp"
         app:menu="@menu/navi_menu"
+        android:outlineProvider="none"
+        app:itemBackground="@drawable/bottom_nav_item_background"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 

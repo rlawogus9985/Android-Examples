@@ -1,15 +1,20 @@
 package com.example.dallamain.Data
 
+import com.google.gson.annotations.SerializedName
+
 data class LiveSectionData(
-    val profileImage: Int,
+    @SerializedName("bjProfileImage") val profileImage: String,
+    @SerializedName("roomTitle") val liveTitleText: String,
+    @SerializedName("teamBgUrl") val medalImage: String?,
+    @SerializedName("bjMemSex") val genderImage: String,
+    @SerializedName("bjNickName") val djName: String,
+    @SerializedName("countLiveMem") val peopleCount: String,
+    @SerializedName("countByeol") val likeCount: String,
+    @SerializedName("risingYn") val risingYn: String,
     val bdgImage1: Int?,
-    val bdgImage2: Int?,
-    val liveTitleText: String,
-    val medalImage: Int?,
-    val genderImage: Int,
-    val djName: String,
-    val peopleCountImage: Int,
-    val peopleCount: String,
-    val likeImage: Int,
-    val likeCount: String
+    val bdgImage2: Int?
+)
+
+data class LiveSectionDataList(
+    @SerializedName("RoomList") val RoomLists: ArrayList<LiveSectionData>
 )

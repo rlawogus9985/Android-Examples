@@ -54,22 +54,27 @@ class LiveSectionAdapter(val item: ArrayList<LiveSectionData>) : RecyclerView.Ad
             params.startToEnd = holder.profileImage.id
             params.marginStart = dpToPx(12,holder.itemView.context.applicationContext)
         } else {
-            holder.medalImage.setImageResource(currentItem.medalImage)
+            Glide.with(holder.itemView.context).load(currentItem.medalImage).into(holder.medalImage)
         }
         // 성별
-        holder.genderImage.setImageResource(currentItem.genderImage)
+        if (currentItem.genderImage == "m"){
+            Glide.with(holder.itemView.context).load(R.drawable.ico_male).into(holder.genderImage)
+        } else {
+            Glide.with(holder.itemView.context).load(R.drawable.ico_female).into(holder.genderImage)
+        }
+
         // DJ이름
         holder.djName.text = currentItem.djName
         // 사람수 이미지
-        holder.peopleCountImage.setImageResource(currentItem.peopleCountImage)
-        // 사람수
+        Glide.with(holder.itemView.context).load(R.drawable.people_g_s).into(holder.peopleCountImage)
+        // 사람수 gson 자동 String변환
         holder.peopleCount.text = currentItem.peopleCount
         // 좋아요 수 이미지
-        if (currentItem.likeImage == (R.drawable.ico_booster_2)){
-            holder.likeImage.setImageResource(currentItem.likeImage)
+        if (currentItem.risingYn == "y"){
+            Glide.with(holder.itemView.context).load(R.drawable.ico_booster_2).into(holder.likeImage)
             holder.likeCount.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.pink))
         } else {
-            holder.likeImage.setImageResource(currentItem.likeImage)
+            Glide.with(holder.itemView.context).load(R.drawable.heart).into(holder.likeImage)
             holder.likeCount.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.gray_99))
         }
         // 좋아요 수
