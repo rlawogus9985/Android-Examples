@@ -2,4 +2,6 @@
     <string name="app_name">DallaMain</string>
     <string name="banner_count">%1$d / %2$d</string>
     <string name="announce">타임랭킹 1~3위시, 스타DJ 가산점 지급</string>
+    <string name="now_top_10">🏆 NOW TOP 10</string>
+    <string name="now_live_text">🚀 지금 라이브 중!</string>
 </resources>

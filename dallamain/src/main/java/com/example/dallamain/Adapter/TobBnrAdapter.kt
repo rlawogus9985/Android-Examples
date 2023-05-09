@@ -19,6 +19,7 @@ class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adap
         return Int.MAX_VALUE
     }
 
+
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val currentItem = item[position % item.size]
         holder.bindSliderImage(currentItem.image_profile)
@@ -29,6 +30,7 @@ class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adap
                 .load(R.drawable.bdg_star)
                 .into(holder.bdg)
         }
+
     }
 
     class CustomViewHolder(private val binding: ItemTopbnrBinding) : RecyclerView.ViewHolder(binding.root){
@@ -42,5 +44,6 @@ class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adap
         val title = binding.topbnrTitle
         val djname = binding.topbnrDjName
         val bdg = binding.topbnrBdg
+
     }
 }

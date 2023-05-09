@@ -8,7 +8,8 @@ import com.bumptech.glide.Glide
 import com.example.dallamain.Data.Top10Data
 import com.example.dallamain.databinding.ItemTop10Binding
 
-class Top10Adapter(val item: ArrayList<Top10Data>) : RecyclerView.Adapter<Top10Adapter.CustomViewHolder>(){
+class Top10Adapter(val item: ArrayList<Top10Data>)
+    : RecyclerView.Adapter<Top10Adapter.CustomViewHolder>(){
 
     class CustomViewHolder(val binding: ItemTop10Binding): RecyclerView.ViewHolder(binding.root){
         val image = binding.top10ProfileImage

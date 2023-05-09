@@ -2,7 +2,6 @@ package com.example.dallamain
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.widget.NestedScrollView
@@ -40,7 +39,6 @@ class CustomScrollView(context: Context, attributeSet: AttributeSet? = null)
 
     override fun onScrollChanged(scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
         super.onScrollChanged(scrollX, scrollY, oldScrollX, oldScrollY)
-            Log.d("dfsdf","${tabLayoutInitPosition}, ${actionbarWHeight}")
         if (scrollY > tabLayoutInitPosition - actionbarWHeight) {
             stickHeader(scrollY - tabLayoutInitPosition + actionbarWHeight)
         } else {
