@@ -15,7 +15,7 @@ class FollowingAdapter(private val item: ArrayList<FollowingData>)
 
     private val VIEW_TYPE_FOLLOWING = 0
     private val VIEW_TYPE_ETC = 1
-    private val ETC_POSITION = 5
+    private val ETC_POSITION = 7
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -31,7 +31,7 @@ class FollowingAdapter(private val item: ArrayList<FollowingData>)
     }
 
     override fun getItemCount(): Int {
-        return ETC_POSITION + 1
+        return if (item.size > ETC_POSITION) (ETC_POSITION + 1) else item.size
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -47,40 +47,38 @@ class FollowingAdapter(private val item: ArrayList<FollowingData>)
 
         if(getItemViewType(position) == VIEW_TYPE_FOLLOWING){
             val holder = holder as FollowingViewHolder
-            if (position < ETC_POSITION){
-                holder.text.text = currentItem.text
-                holder.image.clipToOutline = true
+            holder.text.text = currentItem.text
+            holder.image.clipToOutline = true
+            Glide.with(holder.itemView.context)
+                .load(currentItem.profImg.url)
+                .into(holder.image)
+            if (currentItem.isBroadcasting == "y"){
                 Glide.with(holder.itemView.context)
-                    .load(currentItem.profImg.url)
-                    .into(holder.image)
-                if (currentItem.isBroadcasting == "y"){
-                    Glide.with(holder.itemView.context)
-                        .load(R.drawable.gradient_pink_circle_background)
-                        .into(holder.backgroundImage)
-                } else if(currentItem.isBroadcasting == "n"){
-                    Glide.with(holder.itemView.context)
-                        .load(R.drawable.gradient_gray_circle_background)
-                        .into(holder.backgroundImage)
-                }
+                    .load(R.drawable.gradient_pink_circle_background)
+                    .into(holder.backgroundImage)
+            } else if(currentItem.isBroadcasting == "n"){
+                Glide.with(holder.itemView.context)
+                    .load(R.drawable.gradient_gray_circle_background)
+                    .into(holder.backgroundImage)
             }
 
             if (position == 0){
                 val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
                 layoutParams.setMargins(dpToPx(16, holder.itemView.context),0,dpToPx(10, holder.itemView.context),0)
                 holder.itemView.layoutParams = layoutParams
-            } else {
+            } else if (position == item.size - 1){
+                val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+                layoutParams.setMargins(0,0,dpToPx(4, holder.itemView.context),0)
+                holder.itemView.layoutParams = layoutParams
+            }else {
                 val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
                 layoutParams.setMargins(0,0,dpToPx(10, holder.itemView.context),0)
                 holder.itemView.layoutParams = layoutParams
             }
-//            else if (position == ETC_POSITION - 1){
-//                val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
-//                layoutParams.setMargins(0,0,dpToPx(4, holder.itemView.context),0)
-//                holder.itemView.layoutParams = layoutParams
-//            }
+
         } else if(getItemViewType(position) == VIEW_TYPE_ETC){
             val holder = holder as EtcViewHolder
-            holder.etcText.text = "+${item.size - ETC_POSITION}"
+            holder.etcText.text = holder.itemView.context.getString(R.string.etc_count, item.size - ETC_POSITION)
             val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
             layoutParams.setMargins(0,dpToPx(5, holder.itemView.context),dpToPx(4, holder.itemView.context),0)
             holder.itemView.layoutParams = layoutParams

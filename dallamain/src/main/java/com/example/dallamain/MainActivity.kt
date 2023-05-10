@@ -3,7 +3,6 @@ package com.example.dallamain
 import android.animation.Animator
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
@@ -21,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.dallamain.Adapter.*
 import com.example.dallamain.Data.Top10Data
@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
     private lateinit var jobTopBnr: Job
     private lateinit var jobAdBnr: Job
 
-    private var CHANGE_BOUNDARY: Int = 0
+    private var actionbarWChangeBoundary: Int = 0
 
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,29 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS , WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        binding.refresh.setOnRefreshListener {
-            if(binding.topbnrViewPager.isFakeDragging || binding.bannerViewPager.isFakeDragging){
-                binding.topbnrViewPager.endFakeDrag()
-                binding.bannerViewPager.endFakeDrag()
-            }
-
-            binding.refresh.isRefreshing = false
-
-            jobTopBnr.cancel()
-            jobAdBnr.cancel()
-
-            mainViewModel.getTopBnrLists()
-            mainViewModel.getFollowingList()
-            mainViewModel.getEventList()
-            mainViewModel.getLiveDataList()
-            binding.topbnrViewPager.adapter?.notifyDataSetChanged()
-//            binding.followingRecylcerView.adapter?.notifyDataSetChanged()
-            binding.bannerViewPager.adapter?.notifyDataSetChanged()
-            binding.liveSectionRecylcerView.adapter?.notifyDataSetChanged()
-            topBnrAutoScroll()
-            adBnrAutoScroll()
-        }
-
+        refreshSettings(binding.refresh)
 
         binding.footerLayout.itemIconTintList = null
 
@@ -129,11 +107,49 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
 
         setObserve()
     }
-    fun setObserve(){
-        mainViewModel.topBnrLists.observe(this){ topBnrLists ->
+
+    override fun onResume() {
+        super.onResume()
+        topBnrAutoScroll()
+        adBnrAutoScroll()
+    }
+    // viewModel의 api다시 불러오기
+    private fun getApiData() = with(mainViewModel){
+        getTopBnrLists()
+        getFollowingList()
+        getEventList()
+        getLiveDataList()
+    }
+
+    private fun refreshSettings(swipeRefreshLayout: SwipeRefreshLayout) = with(swipeRefreshLayout){
+        setColorSchemeColors(ContextCompat.getColor(this@MainActivity, R.color.white))
+        setProgressBackgroundColorSchemeResource(R.color.pink)
+        setOnRefreshListener {
+            if(binding.topbnrViewPager.isFakeDragging || binding.bannerViewPager.isFakeDragging){
+                binding.topbnrViewPager.endFakeDrag()
+                binding.bannerViewPager.endFakeDrag()
+            }
+
+            jobTopBnr.cancel()
+            jobAdBnr.cancel()
+
+            getApiData()
+
+            binding.topbnrViewPager.adapter?.notifyDataSetChanged()
+            binding.bannerViewPager.adapter?.notifyDataSetChanged()
+            topBnrAutoScroll()
+            adBnrAutoScroll()
+
+            binding.refresh.isRefreshing = false
+        }
+    }
+
+    private fun setObserve() = with(mainViewModel){
+
+        topBnrLists.observe(this@MainActivity){ topBnrLists ->
             binding.topbnrViewPager.apply {
-                adapter = TobBnrAdapter(topBnrLists)
                 setCurrentItem(Int.MAX_VALUE / 2 - (Int.MAX_VALUE / 2) % topBnrLists.size, false)
+                adapter = TopBnrAdapter(topBnrLists)
 
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageScrollStateChanged(state: Int) {
@@ -142,34 +158,34 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
                             ViewPager2.SCROLL_STATE_IDLE -> {
                                 if (!jobTopBnr.isActive) topBnrAutoScroll()
                             }
-                            ViewPager2.SCROLL_STATE_DRAGGING -> jobTopBnr.cancel()
+                            ViewPager2.SCROLL_STATE_DRAGGING -> { jobTopBnr.cancel() }
+                            ViewPager2.SCROLL_STATE_SETTLING -> {}
                         }
                     }
                 })
 
                 setPageTransformer { page, position ->
-//                    val constraint = page.findViewById<ConstraintLayout>(R.id.topbnrTextLayout)
                     val itemTopbnrBinding = ItemTopbnrBinding.bind(page)
                     itemTopbnrBinding.topbnrTextLayout.translationX = position * page.width / 2
                 }
 
                 viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener{
                     override fun onGlobalLayout() {
-                        CHANGE_BOUNDARY = (binding.topbnrViewPager.height * (1/2.0)).toInt()
+                        actionbarWChangeBoundary = (binding.topbnrViewPager.height * (1/2.0)).toInt()
                         binding.topbnrViewPager.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     }
                 })
 
             }
         }
-        mainViewModel.followingList.observe(this){ followingList ->
+        followingList.observe(this@MainActivity){ followingList ->
             binding.followingRecylcerView.apply {
                 adapter = FollowingAdapter(followingList)
                 layoutManager =
                     LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
             }
         }
-        mainViewModel.eventLists.observe(this){ eventLists ->
+        eventLists.observe(this@MainActivity){ eventLists ->
             binding.bannerViewPager.apply {
                 adapter = BannerAdapter(eventLists)
                 setCurrentItem(Int.MAX_VALUE / 2 - (Int.MAX_VALUE / 2) % eventLists.size, false)
@@ -189,12 +205,13 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
                                 if (!jobAdBnr.isActive) adBnrAutoScroll()
                             }
                             ViewPager2.SCROLL_STATE_DRAGGING -> jobAdBnr.cancel()
+                            ViewPager2.SCROLL_STATE_SETTLING -> {}
                         }
                     }
                 })
             }
         }
-        mainViewModel.liveSectionLists.observe(this){ liveSectionLists ->
+        liveSectionLists.observe(this@MainActivity){ liveSectionLists ->
             binding.liveSectionRecylcerView.apply {
                 adapter = LiveSectionAdapter(liveSectionLists)
                 layoutManager =
@@ -202,21 +219,22 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
             }
         }
 
-        mainViewModel.bjText.observe(this){
+        bjText.observe(this@MainActivity){
+            // 나중에 클릭시 동작을 정의하기 위해
             if (it){
                 binding.textBJ.setTextAppearance(R.style.suitBoldStyle2)
             } else {
                 binding.textBJ.setTextAppearance(R.style.suitSemiBoldStyle2)
             }
         }
-        mainViewModel.fanText.observe(this){
+        fanText.observe(this@MainActivity){
             if (it){
                 binding.textFan.setTextAppearance(R.style.suitBoldStyle2)
             } else {
                 binding.textFan.setTextAppearance(R.style.suitSemiBoldStyle2)
             }
         }
-        mainViewModel.teamText.observe(this){
+        teamText.observe(this@MainActivity){
             if(it){
                 binding.textTeam.setTextAppearance(R.style.suitBoldStyle2)
             } else {
@@ -225,11 +243,11 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         }
     }
 
-    fun getStatusBarHeight(context: Context): Int {
+    private fun getStatusBarHeight(context: Context): Int {
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen","android")
         return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId) else 0
     }
-    @SuppressLint("DiscouragedApi", "InternalInsetResource")
+
     fun getNavigationBarHeight(context: Context): Int {
         val resourceId = context.resources.getIdentifier("navigation_bar_height", "dimen","android")
         return if (resourceId > 0) context.resources.getDimensionPixelSize(resourceId) else 0
@@ -248,12 +266,6 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        topBnrAutoScroll()
-        adBnrAutoScroll()
-    }
-
     override fun onPause() {
         super.onPause()
         jobTopBnr.cancel()
@@ -264,12 +276,11 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         binding.topbnrViewPager.height - binding.actionBarW.height
     }
 
-
     override fun onScrollChange(v: View?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
-        if(scrollY > CHANGE_BOUNDARY){
+        if(scrollY > actionbarWChangeBoundary){
             val alpha = when {
                 scrollY >= maxScrollY -> 1f
-                else -> (scrollY - CHANGE_BOUNDARY).toFloat() / (maxScrollY - CHANGE_BOUNDARY)
+                else -> (scrollY - actionbarWChangeBoundary).toFloat() / (maxScrollY - actionbarWChangeBoundary)
             }
             binding.dallaLogo.visibility = View.VISIBLE
             binding.dallaLogo.alpha = alpha
@@ -297,21 +308,19 @@ class MainActivity : AppCompatActivity(), View.OnScrollChangeListener {
         }
     }
 
-    fun underChangeBoundary(){
+    private fun underChangeBoundary() {
         binding.btnAlarmW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_alarm_b))
         binding.btnMessageW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_message_b))
         binding.btnRankingW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_ranking_b))
         binding.btnStoreW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_store_b))
     }
 
-    fun overChangeBoundary(){
+    private fun overChangeBoundary(){
         binding.btnAlarmW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_alarm_w))
         binding.btnMessageW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_message_w))
         binding.btnRankingW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_ranking_w))
         binding.btnStoreW.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.btn_store_w))
     }
-
-
 
     private fun ViewPager2.setCurrentItemWithDuration(
         item: Int, duration: Long,

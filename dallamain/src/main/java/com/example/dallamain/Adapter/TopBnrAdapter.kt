@@ -8,7 +8,9 @@ import com.example.dallamain.Data.TopBnrData
 import com.example.dallamain.R
 import com.example.dallamain.databinding.ItemTopbnrBinding
 
-class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adapter<TobBnrAdapter.CustomViewHolder>() {
+class TopBnrAdapter(private val item: ArrayList<TopBnrData>)
+    : RecyclerView.Adapter<TopBnrAdapter.CustomViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val binding = ItemTopbnrBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -18,7 +20,6 @@ class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adap
     override fun getItemCount(): Int {
         return Int.MAX_VALUE
     }
-
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val currentItem = item[position % item.size]
@@ -34,7 +35,7 @@ class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adap
     }
 
     class CustomViewHolder(private val binding: ItemTopbnrBinding) : RecyclerView.ViewHolder(binding.root){
-        val bnrImage = binding.topbnrImage
+        private val bnrImage = binding.topbnrImage
 
         fun bindSliderImage(imageURL: String?) {
             Glide.with(bnrImage)
@@ -46,4 +47,5 @@ class TobBnrAdapter(private val item: ArrayList<TopBnrData>) : RecyclerView.Adap
         val bdg = binding.topbnrBdg
 
     }
+
 }

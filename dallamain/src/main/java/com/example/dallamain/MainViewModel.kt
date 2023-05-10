@@ -26,7 +26,7 @@ class MainViewModel: ViewModel() {
     private var _topBnrLists = MutableLiveData<ArrayList<TopBnrData>>()
     val topBnrLists: LiveData<ArrayList<TopBnrData>> = _topBnrLists
 
-    // follwing list
+    // following list
     private var _followingList = MutableLiveData<ArrayList<FollowingData>>()
     val followingList: LiveData<ArrayList<FollowingData>> = _followingList
 
@@ -61,11 +61,9 @@ class MainViewModel: ViewModel() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<TopBnrDataList>, t: Throwable) {
                 Log.d("viewbannerlist","${t.toString()}")
             }
-
         })
     }
 

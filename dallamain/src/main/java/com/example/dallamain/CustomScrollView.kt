@@ -21,12 +21,7 @@ class CustomScrollView(context: Context, attributeSet: AttributeSet? = null)
             }
         }
     var actionBarW: View? = null
-        set(value) {
-            field = value
-        }
 
-
-    private var isTabLayoutSticked = false
     private var tabLayoutInitPosition = 0f
     private var actionbarWHeight = 0f
 
@@ -48,16 +43,10 @@ class CustomScrollView(context: Context, attributeSet: AttributeSet? = null)
 
     private fun stickHeader(position: Float){
         tabLayoutSection?.translationY = position
-//        if (!isTabLayoutSticked){
-//            isTabLayoutSticked = true
-//        }
     }
 
     private fun freeHeader(){
         tabLayoutSection?.translationY = 0f
-//        if(isTabLayoutSticked){
-//            isTabLayoutSticked = false
-//        }
     }
 
 }
